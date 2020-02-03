@@ -54,14 +54,4 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         quickstartbutton.SetActive(true);
         PhotonNetwork.LeaveRoom();
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -11,7 +11,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings(); //connceting to photon master server, should be the best one
     }
 
-    public override void OnConnectedToMaster()
+    public override void OnConnectedToMaster()//should connect to the SA servers
     {
         Debug.Log("We are connected to the " + PhotonNetwork.CloudRegion + " Server!");
     }
