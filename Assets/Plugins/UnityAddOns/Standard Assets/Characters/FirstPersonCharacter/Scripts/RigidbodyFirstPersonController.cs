@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using Photon.Pun;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -88,7 +89,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
-
+        private PhotonView pv;
+        private CharacterController myCC;
 
         public Vector3 Velocity
         {
@@ -123,23 +125,31 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
+            pv = GetComponent<PhotonView>();
+            myCC = GetComponent<CharacterController>();
         }
 
 
         private void Update()
         {
-            RotateView();
-
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+            if (!pv.IsMine)
             {
-                m_Jump = true;
+                RotateView();
+
+                if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+                {
+                    m_Jump = true;
+                }
             }
+
         }
 
 
         private void FixedUpdate()
         {
-            GroundCheck();
+            if (!pv.IsMine)
+            {
+GroundCheck();
             Vector2 input = GetInput();
 
             if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
@@ -184,6 +194,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
             m_Jump = false;
+            }
+                
         }
 
 
