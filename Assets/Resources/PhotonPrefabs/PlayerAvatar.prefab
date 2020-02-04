@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2807653322248495082}
   - component: {fileID: 6177531989050330420}
   m_Layer: 0
-  m_Name: PlayerAvatar 1
+  m_Name: PlayerAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  m_Camera: {fileID: 6005655652917377420}
 --- !u!1 &6005655652917377417
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ GameObject:
   - component: {fileID: 6005655652917377423}
   - component: {fileID: 6005655652917377416}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

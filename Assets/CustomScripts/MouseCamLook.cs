@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class MouseCamLook : MonoBehaviour
+public class MouseCamLook : MonoBehaviourPunCallbacks
 {
 
     [SerializeField]
