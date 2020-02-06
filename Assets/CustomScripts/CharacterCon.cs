@@ -19,8 +19,8 @@ public class CharacterCon : MonoBehaviourPunCallbacks
     public float jumpForce = 220f;
     public LayerMask groundedMask;
 
-    Transform cameraT;
-    float verticalRotation;
+    Transform cameraTransform;
+    float verticalLookRotation;
 
     Vector3 moveAmount;
     Vector3 smoothMoveVelocity;
@@ -40,7 +40,7 @@ public class CharacterCon : MonoBehaviourPunCallbacks
             m_Camera.enabled = false;
         }
         //new line of code
-        cameraT = Camera.main.transform;
+        cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -62,32 +62,39 @@ public class CharacterCon : MonoBehaviourPunCallbacks
         //newcode
         if (PV.IsMine)
         {
-            transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivityX);
-            verticalRotation += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivityY;
-            verticalRotation = Mathf.Clamp(verticalRotation, -60, 60);
-            cameraT.localEulerAngles = Vector3.left * verticalRotation;
+            transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
+            verticalLookRotation += Input.GetAxis("Mouse Y") * mouseSensitivityY;
+            verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60, 60);
+            cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
 
-            Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+            // Calculate movement:
+            float inputX = Input.GetAxisRaw("Horizontal");
+            float inputY = Input.GetAxisRaw("Vertical");
+
+            Vector3 moveDir = new Vector3(inputX, 0, inputY).normalized;
             Vector3 targetMoveAmount = moveDir * walkSpeed;
             moveAmount = Vector3.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, .15f);
 
+            // Jump
             if (Input.GetButtonDown("Jump"))
             {
                 if (grounded)
                 {
-                    Rigidbody rb = GetComponent<Rigidbody>();
-                    rb.AddForce(transform.up * jumpForce);
+                    GetComponent<Rigidbody>().AddForce(transform.up * jumpForce);
                 }
-
             }
 
-            grounded = false;
+            // Grounded check
             Ray ray = new Ray(transform.position, -transform.up);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 1.1f, groundedMask))
+            if (Physics.Raycast(ray, out hit, 1 + .1f, groundedMask))
             {
                 grounded = true;
+            }
+            else
+            {
+                grounded = false;
             }
             Rigidbody rb1 = GetComponent<Rigidbody>();
             rb1.MovePosition(rb1.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);

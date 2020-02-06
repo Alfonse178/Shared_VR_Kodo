@@ -18,12 +18,12 @@ GameObject:
   - component: {fileID: 3624875769351100593}
   - component: {fileID: 475020946306221238}
   m_Layer: 0
-  m_Name: PlayerAvatar 1
+  m_Name: PlayerAvatar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9213386563378731680
 Transform:
   m_ObjectHideFlags: 0
@@ -166,8 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   m_Camera: {fileID: 3795824392548002825}
-  mouseSensitivityX: 250
-  mouseSensitivityY: 250
+  mouseSensitivityX: 5
+  mouseSensitivityY: 5
   walkSpeed: 4
   jumpForce: 220
   groundedMask:
@@ -211,13 +211,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3795824392548002828}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.54, z: 0.08}
+  m_LocalRotation: {x: 0.14916651, y: -0, z: -0, w: 0.98881215}
+  m_LocalPosition: {x: 0, y: 0.53999996, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9213386563378731680}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.157001, y: 0, z: 0}
 --- !u!20 &3795824392548002825
 Camera:
   m_ObjectHideFlags: 0
