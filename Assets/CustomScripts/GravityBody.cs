@@ -5,7 +5,7 @@ using UnityEngine;
 public class GravityBody : MonoBehaviour
 {
     GravityAttractor planet;
-    public Rigidbody rb;
+    private Rigidbody rb;
 
     void Awake()
     {
@@ -13,16 +13,16 @@ public class GravityBody : MonoBehaviour
         planet = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
+        
     }
 
     private void FixedUpdate()
     {
-            //dont think this is needed.
+        planet.Attract(transform);
     }
 
     private void Update()
     {
-        //need to fix this
         //planet.Attract(rb);
     }
 }
