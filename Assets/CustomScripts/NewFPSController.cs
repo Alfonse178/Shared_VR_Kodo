@@ -3,16 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CharacterCon : MonoBehaviourPunCallbacks
+public class NewFPSController : MonoBehaviour
 {
-
-    public float speed = 10.0f;
-    private float translation;
-    private float straffe;
-    private PhotonView PV;
-    [SerializeField] private Camera m_Camera;
-
-    //new variables
     public float mouseSensitivityX = 250f;
     public float mouseSensitivityY = 250f;
     public float walkSpeed = 4f;
@@ -27,11 +19,11 @@ public class CharacterCon : MonoBehaviourPunCallbacks
 
     bool grounded;
     //new variables
+    [SerializeField] private Camera m_Camera;
+    private PhotonView PV;
     // Use this for initialization
     void Start()
     {
-        //########OLD CODE#########
-        // turn off the cursor
         PV = GetComponent<PhotonView>();
         Cursor.lockState = CursorLockMode.Locked;
         if (!PV.IsMine)
@@ -39,27 +31,12 @@ public class CharacterCon : MonoBehaviourPunCallbacks
             //Destroy(m_Camera);
             m_Camera.enabled = false;
         }
-        //new line of code
         cameraT = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PV.IsMine)
-        {
-            Debug.Log("passed the if statement");
-            translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-            straffe = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-            transform.Translate(straffe, 0, translation);
-
-            if (Input.GetKeyDown("escape"))
-            {
-                // turn on the cursor
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-        //newcode
         if (PV.IsMine)
         {
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivityX);
@@ -91,6 +68,7 @@ public class CharacterCon : MonoBehaviourPunCallbacks
             }
             Rigidbody rb1 = GetComponent<Rigidbody>();
             rb1.MovePosition(rb1.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-        }
+            }
+           
     }
 }
