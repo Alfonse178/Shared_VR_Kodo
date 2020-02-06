@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public class GravityBody : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    GravityAttractor planet;
+    public Rigidbody rb;
+
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        planet = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+            //dont think this is needed.
+    }
+
+    private void Update()
+    {
+        //need to fix this
+        //planet.Attract(rb);
     }
 }
